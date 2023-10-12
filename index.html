@@ -57,19 +57,19 @@
 			primarily related to the use of inferior actions from the current policy in Bellman updates as compared to the more optimal action samples in the replay buffer.
 			We hypothesize that this long-neglected phenomenon potentially hinders policy learning and reduces sample efficiency.
 			Our insight to address this issue is to incorporate sufficient exploitation of past successes while maintaining exploration optimism.
-			We propose the Blended Exploitation and Exploration (BEE) operator, a simple yet effective approach that updates $Q$-value using both historical best-performing actions and the current policy.
+			We propose the Blended Exploitation and Exploration~(BEE) operator, a simple yet effective approach that updates $Q$-value using both historical best-performing actions and the current policy.
 			The instantiations of our method in both model-free and model-based settings outperform state-of-the-art methods in various continuous control tasks and  achieve strong performance in failure-prone scenarios and real-world robot tasks.
 		</p>
 	</div>
 	<div class="hr"></div>
 	<div>
 		<h2>Real-World Validation</h2>
-		<h3>Smooth Road</h3>
 		<div class="figure-caption">
 			<p>
-				We conduct real-world validation of BAC using a cost-effective D’Kitty robot, tasked with traversing complex terrains and reaching a target point. In this demanding setup, BAC surpasses TD3 and SAC, showcasing stable and natural gaits. In contrast, TD3 tends to adopt lower postures, such as knee walking, while SAC exhibits more oscillatory gait patterns. 
+				Real-world validation of BAC using a cost-effective D'Kitty robot: tasked with traversing complex terrains and reaching goal points. BAC outperforms both TD3 and SAC, mastering <span style="color: #ff0000">a stable, natural gait</span>; TD3 opts for a low stance, such as a knee walk, whereas SAC exhibits more oscillatory gait patterns.
 			</p>
 		</div>
+		<h3>Smooth Road</h3>
 		<div class="content-video" style="margin-bottom: 32px">
 			<div class="content-video-container">
 				<div class="content-video-frame medium" style="padding: 1.1%">
@@ -170,7 +170,7 @@
 		<h2>DogRun</h2>
 		<div class="figure-caption">
 			<p>
-				BAC successfully solves the complex Dog tasks that come with 38-dimensional continuous action spaces, where other baselines struggle to learn meaningful behaviors. To the best of our knowledge, this is the first documented result of model-free methods effectively tackling these challenging Dog tasks.
+				BAC excels in the complex DogRun task with <span style="color: #ff0000">38-dimensional continuous action space</span>—a challenge that stumps other methods. This is, to the best of our knowledge, <span style="color: #ff0000">the first documented result</span> of model-free methods effectively tackling the challenging Dog task.
 			</p>
 		</div>
 		<div class="content-video" style="margin-bottom: 32px">
@@ -213,7 +213,7 @@
 		<h2>HumanoidStandup</h2>
 		<div class="figure-caption">
 			<p>
-				In the high-dimension, failure-prone HumanoidStandup task, BAC achieves returns up to ~280,000 and ~360,000 at 2.5 and 5 million steps respectively, which is 2.1x evalution scores against the strongest baseline. BAC swiftly achieves a stable standing pose. The SAC agent ends up with a wobbling kneeling posture, the DAC agent sits on the ground, and the RRS agent rolls around.
+				In the tough HumanoidStandup task, BAC achieves <span style="color: #ff0000">2.1x evaluation scores</span> against the strongest baseline. Scores ~280,000  at 2.5M steps and ~360,000  at 5M steps. BAC stands strong, while others falter—SAC wobbles, DAC sits, and RRS rolls.
 			</p>
 		</div>
 		<div class="content-video" style="margin-bottom: 48px">
@@ -256,13 +256,13 @@
 		<h2>Benchmark Results</h2>
 		<div class="figure-caption">
 			<p>
-			We propose BAC (model-free algorithm) and MB-BAC (model-based algorithm) based on the proposed BEE operator. The experimental results on several continuous control benchmark tasks illustrate the effectiveness of the BEE operator across both model-based and model-free paradigms.
+				We evaluate the BEE operator on <span style="color: #ff0000">33 diverse benchmark tasks</span> from <span style="color: #ff0000">MuJoCo, DMControl, and Meta-World</span>. It excels in both  locomotion  and manipulation tasks. As a versatile plugin, it seamlessly enhances performance with various policy optimization methods, shining in <span style="color: #ff0000">model-based and model-free paradigms</span>.
 			</p>
 		</div>
 		<h3>BAC in MuJoCo Benchmarks</h3>
 		<div class="figure-caption">
 			<p>
-				We evaluate BAC and five state-of-the-art baselines on a set of MuJoCo continuous control tasks, including Hopper, Walker2d, Swimmer, Ant, Humanoid, and HumanoidStandup. BAC surpasses all baselines in terms of eventual performance, coupled with better sample efficiency.
+				We evaluate BAC on 6 continuous control tasks from MuJoCo. BAC outperforms all baselines in both eventual performance and sample efficiency.
 			</p>
 		</div>
 		<div class="figure-caption">
@@ -272,11 +272,31 @@
 		<h3>MB-BAC in MuJoCo Benchmarks</h3>
 		<div class="figure-caption">
 			<p>
-				We evaluate the performance of MB-BAC, against six popular model-based and model-free baselines. The results showcases that MB-BAC learns faster than other modern model-based RL methods and yields promising asymptotic performance compared with model-free counterparts. These results highlights the universality of the BEE operator.
+				We evaluate MB-BAC on four MuJoCo continuous control tasks. MB-BAC learns faster than MBRL baselines and achieves comparable asymptotic performance with model-free methods.
 			</p>
 		</div>
 		<div class="figure-caption">
 			<div class="figure" style="height: 199px; background-image: url(Figures/main_res_mb_bac.png);"></div>
+		</div>
+		
+		<h3>BAC &amp; BEE-TD3 in DMControl Benchmark Tasks</h3>
+		<div class="figure-caption">
+			<p>
+				We benchmark BAC and its variant, BEE-TD3, on 15 continuous control tasks from DMControl. BAC successfully solves many challenging tasks like HumanoidRun, DogWalk, and DogRun, where both SAC and TD3 fail. Also, BEE-TD3 boosts TD3's performance by a large margin.
+			</p>
+		</div>
+		<div class="figure-caption">
+			<div class="figure" style="height: 599px; background-image: url(Figures/res_dmcontrol.png);"></div>
+		</div>
+		
+		<h3>BAC in Meta-World Benchmark Tasks</h3>
+		<div class="figure-caption">
+			<p>
+				We also benchmark BAC on 12 goal-conditioned manipulation tasks from Meta-World. BAC consistently outperforms SAC and TD3 across all tasks.
+			</p>
+		</div>
+		<div class="figure-caption">
+			<div class="figure" style="height: 899px; background-image: url(Figures/res_metaworld.png);"></div>
 		</div>
 
 </div>
